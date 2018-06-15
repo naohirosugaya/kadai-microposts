@@ -62,4 +62,34 @@ class UsersController extends Controller
 
         return view('users.followers', $data);
     }
+    
+    public function favoritingss($id)
+    {
+        $user = User::find($id);
+        $favoritingss = $user->favoritingss()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'users' => $favoritingss,
+        ];
+
+        $data += $this->counts($user);
+
+        return view('users.favoritingss', $data);
+    }
+
+    public function favoriterss($id)
+    {
+        $user = User::find($id);
+        $favoriterss = $user->favoriterss()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'microposts' => $favoriterss,
+        ];
+
+        $data += $this->counts($user);
+
+        return view('users.favoriterss', $data);
+    }
 }
